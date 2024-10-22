@@ -44,6 +44,9 @@ jobs:
   - job: copr_build
     trigger: pull_request
     manual_trigger: true
+    # Debug try to use dbcsr-2.7.0
+    additional_repos:
+      - copr://lecris/dbcsr-2.7
   - <<: *tests
     identifier: smoke
     trigger: pull_request
