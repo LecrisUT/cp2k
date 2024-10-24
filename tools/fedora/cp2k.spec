@@ -231,14 +231,12 @@ for mpi in '' mpich %{?with_openmpi:openmpi} ; do
     test_mpi_args=(
       "--mpiranks 2"
       "local_${mpi}"
-      "psmp"
     )
   else
     bindir=%{_bindir}
     libdir=%{_libdir}
     test_mpi_args=(
       "local"
-      "ssmp"
     )
   fi
   # Run packaged do_regtest.sh with appropriate buildroot runpaths
