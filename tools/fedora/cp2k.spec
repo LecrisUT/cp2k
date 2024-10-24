@@ -229,20 +229,21 @@ for mpi in '' mpich %{?with_openmpi:openmpi} ; do
     libdir=${MPI_LIB}
     # Note, final position arguments are also here
     test_mpi_args=(
+      "--mpi"
       "--mpiranks 2"
-      "local_${mpi}"
+      "%{buildroot}${bindir}/cp2k.ssmp"
     )
   else
     bindir=%{_bindir}
     libdir=%{_libdir}
     test_mpi_args=(
-      "local"
+      "%{buildroot}${bindir}/cp2k.psmp"
     )
   fi
   # Run packaged do_regtest.sh with appropriate buildroot runpaths
   env PATH=%{buildroot}${bindir}:${PATH} \
     LD_LIBRARY_PATH=%{buildroot}${libdir} \
-    tests/do_regtest.py %{buildroot}${bindir} ${test_mpi_args[@]}
+    tests/do_regtest.py ${test_mpi_args[@]}
   [ -n "$mpi" ] && module unload mpi/${mpi}-%{_arch}
 done
 
